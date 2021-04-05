@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSavePost()"  *ngIf="!isLoading">
+    <mat-form-field appearance="fill">
+      <mat-label>Select Type</mat-label>
+      <!-- <mat-select   name="option" [ngModel]="post.option" required #option="ngModel"> -->
+        <mat-select   formControlName='option'   >
+        <mat-option *ngFor="let type of sellType" [value]="type.viewValue">
+          {{type.viewValue}}
+        </mat-option>
+      </mat-select> 
+    </mat-form-field>
+    <br>
+    <div>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
+      <input type="file" #filePicker (change)="onImagePicked($event)">
+    </div>
+    <div class="image-preview" *ngIf="imagePreview !=='' && imagePreview">
+      <img [src]="imagePreview" [alt]="form.value.option">
+
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter Name or address</mat-label>
+      <!-- <textarea matInput rows="6" name ="content" [ngModel]="post.content"  required #content="ngModel"></textarea> -->
+      <textarea matInput rows="6" formControlName="content"    ></textarea>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Enter Price</mat-label>
+      
+      <input matInput type="text" formControlName="price" >
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Save Post</button>
+  </form>
+</mat-card>
+
